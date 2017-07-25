@@ -1,0 +1,148 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>会议签到</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="format-detection" content="telephone=no,email=no" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1, minimum-scale=1" user-scalable="no">
+
+    <link href="../dist/vendor/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="../dist/css/app.min.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="app-page app-page-full">
+        <!--内容 开始-->
+        <section class="app-page-container">
+            <!--时间 开始-->
+            <input type="text" id="check-in-time" class="none" />
+            <!--时间 结束-->
+            <!--验证提示语 开始-->
+            <div class="validate-tip">
+                请输入姓名
+            </div>
+            <!--验证提示语 结束-->
+            <!--背景图 开始-->
+            <div class="metting-image">
+                <img src="../dist/images/bgMetting.jpg" />
+            </div>
+            <!--背景图 结束-->
+            <!--时间 开始-->
+            <div class="date-time" id="get-date-time">
+                <p class="time">17:31</p>
+                <p class="date">
+                    <span class="date-number">7月10号</span>
+                    <span class="day">周一</span>
+                </p>
+            </div>
+            <!--时间 结束-->
+            <!--会议填写信息 开始-->
+            <section class="app-metting-info">
+                <div class="metting-info-box">
+                    <div class="metting-info-head">
+                        <div class="title">
+                            填写信息进行会议签到
+                        </div>
+                    </div>
+                    <div class="metting-info-body" id="write-message">
+                        <div class="metting-info-title">2017下半年销售计划销售计划制定会议启动会</div>
+
+                        <div class="input-box input-middle-box">
+                            <label class="title">姓名</label>
+                            <input type="text" placeholder="请输入您的姓名" id="name-input" />
+                        </div>
+                        <div class="input-box input-middle-box">
+                            <label class="title">手机号码</label>
+                            <input type="text" placeholder="请输入手机号码" id="phone-input" />
+                        </div>
+                        <div class="input-box input-middle-box">
+                            <label class="title">验证码</label>
+                            <input type="text" placeholder="请输入验证码" class="validate-code" />
+                            <button class="button btn-default-blue" id="get-validate-code">获取验证码</button>
+                        </div>
+                    </div>
+                    <div class="metting-info-foot">
+                        <div class="btn-circle-orange" id="btn-check-in">签到</div>
+                    </div>
+                </div>
+            </section>
+            <!--会议填写信息 结束-->
+            <!--会议签到成功 开始-->
+            <section class="app-metting-info app-metting-sucess-info none">
+                <div class="metting-info-box">
+                    <div class="metting-info-head">
+                        <div class="sucess-title">
+                            签到成功
+                        </div>
+                    </div>
+                    <div class="metting-info-body" id="show-message">
+                        <div class="metting-info-title">2017下半年销售计划销售计划制定会议启动会</div>
+                        <div class="input-box input-label-box">
+                            <label class="title">姓名</label>
+                            <span class="name">李天翰</span>
+                        </div>
+                        <div class="input-box input-label-box">
+                            <label class="title">手机号码</label>
+                            <span class="phone-number">13527852235</span>
+                        </div>
+
+                        <div class="input-box input-label-box">
+                            <label class="title">签到时间</label>
+                            <span class="time">2017-07-10 09:20:00</span>
+                        </div>
+                        <div class="input-box input-label-box">
+                            <label class="title">签到地点</label>
+                            <span class="location">第一会议室</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!--会议签到成功 结束-->
+        </section>
+        <!--内容 开始-->
+        <div class="clearfix"></div>
+    </div>
+    <div class="mask-layout"></div>
+
+    <script src="../dist/vendor/js/jquery-1.11.0.min.js"></script>
+    <script src="../dist/js/dateTime.js"></script>
+    <script src="../dist/js/page.js"></script>
+    <script src="../dist/js/verificationCodeCountdown.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            // 重新获取验证码
+            $('body').on('click', '#get-validate-code', function () {
+                sendCode('#get-validate-code');
+            })
+        })
+    </script>
+
+    <!--注意:
+    （1）“填写信息进行会议签到”弹出层中的数据项（带有input-box样式的为数据项）超过3个数据项，其app-metting-info 样式里面需要添加app-overflow样式名
+    （2）“签到成功”弹出层的数据项（带有input-box样式的为数据项）超过4个数据项其app-metting-info 样式里面需要添加app-overflow样式名
+    （3）前面的（1）（2）两点可以若使用js控制，如下：
+         $(function () {
+            setOverflowClass();
+        })
+        $(window).resize(function () {
+            setOverflowClass();
+        })
+        function setOverflowClass() {
+            console.log('dddd');
+            var $writeInutbox = $('body').find('#write-message .input-box');
+            if ($writeInutbox.length > 3) {
+                $writeInutbox.parents('.app-metting-info').addClass('app-overflow');
+            } else {
+                $writeInutbox.parents('.app-metting-info').removeClass('app-overflow');
+            }
+            var $showInutbox = $('body').find('#show-message .input-box');
+            if ($showInutbox.length > 4) {
+                $showInutbox.parents('.app-metting-sucess-info').addClass('app-overflow');
+            } else {
+                $showInutbox.parents('.app-metting-sucess-info').removeClass('app-overflow');
+            }
+        }
+        -->
+</body>
+</html>
